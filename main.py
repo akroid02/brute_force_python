@@ -7,17 +7,16 @@ import time
 def guess_common_passwords(password):
     with open('common_passwords.text', 'r') as passwords:
         data = passwords.read().splitlines()
-
-    #print(data)
+    # print(data)
 
     for i, match in enumerate(data):
         if match == password:
-            # print(f'The password is: {match} (Attempt #{i})')
             return f'The password is: {match} (Attempt #{i})'
 
     return 0
 
-# Goes through every alphnumeric
+
+# Goes through every combination of chars
 def brute_force(password, min_length=4, max_length=10):
     # Modify this for total symbols
     chars = string.ascii_lowercase + string.digits
@@ -31,6 +30,7 @@ def brute_force(password, min_length=4, max_length=10):
             print(guess, attempts)
 
 
+# Tries the common passwords first, then uses the brute force function
 def get_password(password):
     common = guess_common_passwords(password)
     return brute_force(password) if common == 0 else common
